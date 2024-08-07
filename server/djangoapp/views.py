@@ -5,7 +5,6 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import logout
 from django.contrib import messages
 from datetime import datetime
-
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
 import logging
@@ -13,7 +12,6 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
 from .models import CarMake, CarModel
-
 from .restapis import get_request, analyze_review_sentiments, post_review
 
 
@@ -90,17 +88,15 @@ def get_cars(request):
     return JsonResponse({"CarModels": cars})
     
 #Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
+# a list of dealerships
 def get_dealerships(request, state="All"):
-    if(state == "All"):
+    if state == "All":
         endpoint = "/fetchDealers"
     else:
-        endpoint = "/fetchDealers/"+state
+        endpoint = "/fetchDealers/" + state
     dealerships = get_request(endpoint)
-    return JsonResponse({"status":200,"dealers":dealerships})
+    return JsonResponse({"status": 200, "dealers": dealerships})
 
-# a list of dealerships
-# def get_dealerships(request):
-# ...
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
 def get_dealer_reviews(request, dealer_id):
