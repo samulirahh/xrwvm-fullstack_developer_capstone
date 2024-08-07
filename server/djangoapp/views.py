@@ -1,5 +1,4 @@
-# Uncomment the required imports before adding the code
-
+from .models import CarMake, CarModel
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
