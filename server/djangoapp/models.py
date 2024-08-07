@@ -1,10 +1,8 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-
-# Create your models here.
 class CarMake(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=100)
     description = models.TextField()
 
     def __str__(self):
@@ -23,9 +21,9 @@ class CarModel(models.Model):
     year = models.IntegerField(default=2023,
         validators=[
             MaxValueValidator(2023),
-            MinValueValidator(2015)
-        ])
-    # Other fields as needed
+            MinValueValidator(1886)  # Assuming cars were not made before 1886
+        ]
+    )
 
     def __str__(self):
-        return self.name  # Return the name as the string representation
+        return self.name
