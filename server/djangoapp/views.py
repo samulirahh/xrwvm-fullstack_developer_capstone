@@ -1,10 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
-from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
-from datetime import datetime
 import json
 import logging
 
@@ -42,10 +39,10 @@ def registration(request):
     first_name = data['firstName']
     last_name = data['lastName']
     email = data['email']
-    
+
     username_exist = User.objects.filter(username=username).exists()
     if not username_exist:
-        User.objects.create_user(username=username, first_name=first_name, 
+        User.objects.create_user(username=username, first_name=first_name,
                                  last_name=last_name, password=password, email=email)
         login(request, User.objects.get(username=username))
         return JsonResponse({"userName": username, "status": "Authenticated"})
@@ -99,6 +96,7 @@ def add_review(request):
             post_review(data)
             return JsonResponse({"status": 200})
         except Exception:
-            return JsonResponse({"status": 401, "message": "Error in posting review"})
+            return JsonResponse({"status": 401,
+             "message": "Error in posting review"})
     else:
         return JsonResponse({"status": 403, "message": "Unauthorized"})
